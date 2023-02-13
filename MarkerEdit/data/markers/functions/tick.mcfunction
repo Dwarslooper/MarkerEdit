@@ -1,0 +1,16 @@
+scoreboard objectives add markervs dummy
+execute unless score #mkval markervs matches 1..4 run scoreboard players set #mkval markervs 4
+execute if score #mkval markervs matches 1 as @a at @s as @e[type=minecraft:marker,distance=..10,tag=!markerdect_82752] at @s run particle minecraft:dust 0.898 1 0 1 ~ ~0.2 ~ 0 0 0 1 0 normal
+execute if score #mkval markervs matches 2 as @a[nbt={SelectedItem:{tag:{display:{Name:'{"text":"Markers"}'}}}}] at @s as @e[type=minecraft:marker,distance=..10,tag=!markerdect_82752] at @s run particle minecraft:dust 0.898 1 0 1 ~ ~0.2 ~ 0 0 0 1 0 normal
+execute if score #mkval markervs matches 3 as @a[nbt={SelectedItem:{id:"minecraft:spectral_arrow"}}] at @s as @e[type=minecraft:marker,distance=..10,tag=!markerdect_82752] at @s run particle minecraft:dust 0.898 1 0 1 ~ ~0.2 ~ 0 0 0 1 0 normal
+execute as @a[nbt={SelectedItem:{id:"minecraft:golden_sword",tag:{display:{Name:'{"text":"MarkerEdit"}'}}}}] at @s positioned ^ ^0.2 ^1 unless entity @e[type=armor_stand,tag=markerdect_82752,distance=..1] run summon armor_stand ~ ~ ~ {Silent:1b,PersistenceRequired:1b,Tags:["markerdect_82752"],Invisible:1b,ShowArms:1b,NoGravity:1b}
+execute as @a[nbt={SelectedItem:{id:"minecraft:golden_sword",tag:{display:{Name:'{"text":"MarkerEdit"}'}}}}] at @s positioned ^ ^0.2 ^1 run teleport @e[type=armor_stand,tag=markerdect_82752,distance=..1,sort=nearest] ~ ~ ~
+execute as @e[type=armor_stand,nbt={Tags:["markerdect_82752"],HandItems:[{id:"minecraft:golden_sword",Count:1b,tag:{display:{Name:'{"text":"MarkerEdit"}'}}},{}]}] at @s run scoreboard players add #mkval markervs 1
+execute as @e[type=armor_stand,nbt={Tags:["markerdect_82752"],HandItems:[{id:"minecraft:golden_sword",Count:1b,tag:{display:{Name:'{"text":"MarkerEdit"}'}}},{}]}] at @s run data merge entity @s {HandItems:[{id:"minecraft:air"},{}]}
+execute as @a[nbt={SelectedItem:{tag:{display:{Name:'{"text":"MarkerEdit"}'}}}}] at @s if score #mkval markervs matches 1 run title @s actionbar {"text":"Marker visibility: ALWAYS","color":"green"}
+execute as @a[nbt={SelectedItem:{tag:{display:{Name:'{"text":"MarkerEdit"}'}}}}] at @s if score #mkval markervs matches 2 run title @s actionbar {"text":"Marker visibility: NAMED ITEM","color":"aqua"}
+execute as @a[nbt={SelectedItem:{tag:{display:{Name:'{"text":"MarkerEdit"}'}}}}] at @s if score #mkval markervs matches 3 run title @s actionbar {"text":"Marker visibility: SPECTRAL ARROW","color":"gold"}
+execute as @a[nbt={SelectedItem:{tag:{display:{Name:'{"text":"MarkerEdit"}'}}}}] at @s if score #mkval markervs matches 4 run title @s actionbar {"text":"Marker visibility: NEVER","color":"dark_red"}
+execute if score #mkval markervs matches 5 run scoreboard players set #mkval markervs 1
+execute as @e[type=armor_stand,tag=markerdect_82752] at @s unless entity @a[distance=..2] run kill @s
+execute as @e[tag=markerdect_82752,type=armor_stand] at @s unless entity @a[nbt={SelectedItem:{id:"minecraft:golden_sword",tag:{display:{Name:'{"text":"MarkerEdit"}'}}}},distance=..2] run kill @s
