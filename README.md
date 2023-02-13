@@ -1,5 +1,5 @@
 # MarkerEdit
- A utility datapack for editing markers
+ A utility datapack for working with markers
 ---
 ## Usage
 Name a golden sword "MarkerEdit" to switch between the following visibility settings:
